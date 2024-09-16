@@ -23,7 +23,34 @@ OpenCV is used for the calibration step, classic mathematical operations, and so
 PointCloudLibrary (PCL) is used for the 3D sperical view. 
 
 ## Usage
+Some tips to compile and run the different codes provided.
 
 ### Calibration
+This part refers to the Calibration folder.
 
 ### Viewer & Tracking
+This part refers to the Omnitracking folder.
+
+Compilation:
+
+```
+cd SFERA/Omnitracking/
+mkdir -p build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make
+```
+
+Viewer:
+
+```
+./SFERA_viewer {SerialPortMaster} {SerialPortSlave}
+
+```
+Tracking:
+```
+./SFERA_omnitracking {SerialPortMaster} {SerialPortSlave}
+```
+Note that the codes can also be used with prerecorded .raw data. In this case, one can change {SerialPortMaster} {SerialPortSlave} by the file address of the data, *e.g.* {/master.raw} {/slave.raw}.
+
+## Acknowledgment
+The bayesian estimator is adapted from the work of Prof. Ivan Marković on omnidirectional RGB, whose source code can be found here: https://bitbucket.org/unizg-fer-lamor/odyn-tracker/src/master/
