@@ -3,11 +3,11 @@
 #include <numeric>
 
 #include "angle.hpp"
-//#include "Odometry.hpp"
+
 
 using namespace cv;
 
-class BayesianFilter
+class BayesianEstimator
 {
 private:
   Angle ang_;
@@ -122,12 +122,12 @@ public:
   std::vector<double> dt_vec_;
   int nInit = 0;
 
-  BayesianFilter()
+  BayesianEstimator()
     {
     initialized_ = false;
     }
 
-  ~BayesianFilter()
+  ~BayesianEstimator()
     {
     }
 
@@ -153,11 +153,7 @@ public:
     {
         cv::Vec3d mean_rot_vel(0.0, 0.0, 0.0);
 
-        //cv::Vec3d total_dt;
-        //std::vector<cv::Vec3d> omegadt_;
-        //cv::multiply(rot_velocities_, dt_vec_, omegadt_);
-        //mean_rot_vel = accumulate(omegadt_.begin(), omegadt_.end(), mean_rot_vel, std::plus<>{});
-        //dt_sum = accumulate(dt_vec_.begin(), dt_vec_.end(), dt_sum, std::plus<>{});
+
          for(int i = 0; i < rot_velocities_.size(); i++){
           mean_rot_vel += rot_velocities_[i]*dt_vec_[i];
           dt_sum += dt_vec_[i];
@@ -182,9 +178,7 @@ public:
         est_u_.z = u_hom.at<double>(2,0);
     }
 
-    // transform the point as if it was on a fixed distance
-    //double scale = 0.8;
-    //est_u_ = odom.tfToCurrentFrame(scale * est_u_);
+
    
     // keep the size of the velocity vector bounded
     if (rot_velocities_.size() > 5){
@@ -199,8 +193,8 @@ public:
     }
     // convolution with process noise vMF
     est_k_ = convolveVMF(est_k_, p_noise_k);
-    //std::cout<<" K ="<< est_k_ << std::endl; 
-    if(est_k_<50){
+
+    if(est_k_<50){//reinitialization of the tracker for poor value of k
       initialized_=false;
       std::cout<< " Need to reinitialise " << std::endl;
     }
@@ -218,7 +212,6 @@ void update(std::vector<Point3d> Zk_vec, double k, double dt)
         // Find the closest measurement to the current object using angle between vectors
         for (int i = 0; i < (int) Zk_vec.size(); i++)
         {
-        //        log_map_dist = sqrt(pow(log(est_k_ / k),2) + pow(acos(est_u_.dot(Zk_vec.at(i))), 2));
         double dist_ang = est_u_.dot(Zk_vec.at(i));
         dot_dist = acos(min(max(dist_ang,-1.0),1.0)); // to prevent NaN !
         if (dot_dist < min_dist)
@@ -232,13 +225,13 @@ void update(std::vector<Point3d> Zk_vec, double k, double dt)
           return;
         }
         
-
         Zk = Zk_vec[min_idx];
         double k_prod = sqrt(pow(est_k_,2) + pow(k,2) + 2.0 * est_k_ * k * est_u_.dot(Zk));
         est_u_ = (est_k_ * est_u_ + k * Zk);
         est_u_ = est_u_ * (1.0 / k_prod);
         est_k_ = k_prod;
-        //calculate rotational velocities via theta_u representation
+
+        //calculate rotational velocities (for the prediction) via theta_u representation
         cv::Vec3d omega;
         double theta;
         cv::Point3d u_axe;

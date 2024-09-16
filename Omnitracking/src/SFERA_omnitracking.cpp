@@ -52,7 +52,7 @@
 #include "event2d_id.hpp"//Here, only for data recording
 #include "eventSphere.hpp"
 #include "tracking_drawing.hpp"
-#include "bayesianFilter.hpp"
+#include "bayesianEstimator.hpp"
 
 using namespace std::chrono_literals;
 
@@ -229,7 +229,7 @@ public:
 
 namespace po = boost::program_options;
 bool live_camera = true;
-bool raw_record = true;
+bool raw_record = false;
 int main(int argc, char *argv[]) {
 
     if(argc < 2)
@@ -370,7 +370,7 @@ int main(int argc, char *argv[]) {
     RollingEventBuffer event_buffer_master;
     TrackingBuffer tracked_objects_slave;
     TrackingBuffer tracked_objects_master;
-    BayesianFilter bf_;
+    BayesianEstimator be_;
     bool FirstInit = false;
     bool clockStarted = false;
 
@@ -423,9 +423,10 @@ int main(int argc, char *argv[]) {
         deviceSlaveCamera->get_facility<Metavision::I_EventDecoder<Metavision::EventCD>>();
 
     if (i_cddecoder_slave) {
-         std::vector<Metavision::EventCD> output;//,output2;
+        //,output2;
         i_cddecoder_slave->add_event_buffer_callback(
             [&](const Metavision::EventCD *begin, const Metavision::EventCD *end) {
+                std::vector<Metavision::EventCD> output;
                 stc_filter_slave.process_events(begin,end,std::back_inserter(output));
                 frame_gen_slave.process_events(output.begin(), output.end());//(begin, end)
                 slicer_slave->process_events(output.begin(), output.end(), [&](const auto sub_slice_begin_it, const auto sub_slice_end_it) {
@@ -476,9 +477,9 @@ int main(int argc, char *argv[]) {
         deviceMasterCamera->get_facility<Metavision::I_EventDecoder<Metavision::EventCD>>();
 
     if (i_cddecoder_master) {
-        std::vector<Metavision::EventCD> output;//,output2;
         i_cddecoder_master->add_event_buffer_callback(
             [&](const Metavision::EventCD *begin, const Metavision::EventCD *end) {
+                std::vector<Metavision::EventCD> output;//,output2;
                 stc_filter_master.process_events(begin,end,std::back_inserter(output));
                 frame_gen_master.process_events(output.begin(), output.end());//(begin, end);//
                 slicer_master->process_events(output.begin(), output.end(), [&](const auto sub_slice_begin_it, const auto sub_slice_end_it) {
@@ -518,7 +519,7 @@ int main(int argc, char *argv[]) {
     K2.at<double>(0,0)=972.311;K2.at<double>(0,1)=0;K2.at<double>(0,2)=618.132;
     K2.at<double>(1,0)=0;K2.at<double>(1,1)=969.822;K2.at<double>(1,2)=361.180;
     K2.at<double>(2,0)=0;K2.at<double>(2,1)=0;K2.at<double>(2,2)=1;
-    double xi2 = 1.685 
+    double xi2 = 1.685;
     
     
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("Global unit sphere"));
@@ -561,28 +562,28 @@ int main(int argc, char *argv[]) {
         max_tmstp=std::max(max_tmstp,(double)track_s_copy.at(j).t);
    }
 
-    if (!Zk.empty() && Zk.size() == 1 && !bf_.initialized_)
+    if (!Zk.empty() && Zk.size() == 1 && !be_.initialized_)
         {
         // initialize Bayesian filter
-        bf_.initialize(Zk[0], 500.0);
+        be_.initialize(Zk[0], 500.0);
         last_tmstp = max_tmstp;
         FirstInit = true;
         }
 
-    if (bf_.initialized_)
+    if (be_.initialized_)
         {
         double dt = (max_tmstp - last_tmstp)/1e6; //dt in s
 
         if (dt > 0){
-        bf_.predict(5000.0, Zk, dt);
-        bf_.update(Zk, 100.0, dt);
+        be_.predict(5000.0, Zk, dt);
+        be_.update(Zk, 100.0, dt);
         }
         last_tmstp = max_tmstp; //if no object tracked last_tmtp is unchanged
         }
     std::this_thread::sleep_for(10ms);
     }
-    if(bf_.initialized_){
-    //std::cout<<"Object last tracked position XYZ = ( " << bf_.est_u_.x<<" , " << bf_.est_u_.y << " , "<< bf_.est_u_.z << " ) on the sphere"<<std::endl;
+    if(be_.initialized_){
+    //std::cout<<"Object last tracked position XYZ = ( " << be_.est_u_.x<<" , " << be_.est_u_.y << " , "<< be_.est_u_.z << " ) on the sphere"<<std::endl;
     }
     }
     }); 
@@ -662,22 +663,22 @@ int main(int argc, char *argv[]) {
             else{
                 viewer->updatePointCloud<pcl::PointXYZRGB>(cloud_sphere,rgb,"Unit sphere");
             }
-            if(bf_.initialized_){
+            if(be_.initialized_){
                 pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_vmf ( new pcl::PointCloud<pcl::PointXYZRGB> );
                 pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb_vmf(cloud_vmf);
-                for (int i = 0; i < bf_.samples_.cols; i++)
+                for (int i = 0; i < be_.samples_.cols; i++)
                 {
                 pcl::PointXYZRGB pt;
-                pt.x = bf_.samples_.at<double>(0,i);
-                pt.y = bf_.samples_.at<double>(1,i);
-                pt.z = bf_.samples_.at<double>(2,i);
+                pt.x = be_.samples_.at<double>(0,i);
+                pt.y = be_.samples_.at<double>(1,i);
+                pt.z = be_.samples_.at<double>(2,i);
                 pt.r = 255; pt.b = 0; pt.g = 0;
                 cloud_vmf->push_back(pt);
                 }
                 pcl::PointXYZ pt_u;
-                pt_u.x=bf_.est_u_.x;
-                pt_u.y=bf_.est_u_.y;
-                pt_u.z=bf_.est_u_.z;
+                pt_u.x=be_.est_u_.x;
+                pt_u.y=be_.est_u_.y;
+                pt_u.z=be_.est_u_.z;
                 if(!vmf_cloud_initialized){
                 viewer->addPointCloud<pcl::PointXYZRGB> (cloud_vmf,rgb,"VMF");
                 viewer->addSphere(pt_u,0.03,0,255,0,"u");
@@ -708,7 +709,7 @@ int main(int argc, char *argv[]) {
         if(clockStarted == true){
         auto elapsed = std::chrono::high_resolution_clock::now() - start;
         double t  = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count()/1000.0;
-        flog<<t<<" "<<bf_.est_u_.x<<" "<<bf_.est_u_.y<<" "<<bf_.est_u_.z<<" "<<bf_.est_k_<<" "<<bf_.nInit<<"\n";
+        //flog<<t<<" "<<be_.est_u_.x<<" "<<be_.est_u_.y<<" "<<be_.est_u_.z<<" "<<be_.est_k_<<" "<<be_.nInit<<"\n";
         //std::cout<<"t = "<<t<<std::endl;
         }
     }

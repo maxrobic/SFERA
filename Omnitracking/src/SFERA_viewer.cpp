@@ -47,6 +47,25 @@ using namespace std::chrono_literals;
 
 const size_t BUFFER_EVENT_SIZE = 10000;
 
+// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
+
+auto dateTime = currentDateTime();
+
+std::string logfilename = "/home/maxime/openeb-ws/dev/dataset_raw/SFERA/tracker"+ dateTime +".dat";
+
+    // Open the log file name
+std::ofstream flog(logfilename.c_str());
 
 // Buffer commun aux deux caméras (taille arbitraire)
 Metavision::Event2d_id* bufferEvent = new Metavision::Event2d_id[BUFFER_EVENT_SIZE];
@@ -410,7 +429,7 @@ int main(int argc, char *argv[]) {
     K2.at<double>(0,0)=972.311;K2.at<double>(0,1)=0;K2.at<double>(0,2)=618.132;
     K2.at<double>(1,0)=0;K2.at<double>(1,1)=969.822;K2.at<double>(1,2)=361.180;
     K2.at<double>(2,0)=0;K2.at<double>(2,1)=0;K2.at<double>(2,2)=1;
-    double xi2 = 1.685 
+    double xi2 = 1.685;
     
     
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("Global unit sphere"));

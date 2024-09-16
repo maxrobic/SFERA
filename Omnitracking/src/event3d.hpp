@@ -58,48 +58,6 @@ public:
         this->Z=Z;
     }
     
-    /// @brief return the bearing vector of an event in the unit sphere (rho=1) Warning: spherical coordinates projected from image frame, i.e X-rotated from 90°
-    inline cv::Vec2f getBearingUnit() {
-        cv::Vec2f bearing;
-        double alpha;
-        double beta;
-        if(this->Y == 1 || this-> Y == -1){
-            std::cout<<"Bearing undefined for this coordinate (Z=1 or Z=-1)"<<std::endl;
-            return 0;
-        }
-        else{
-        beta=asin(-Y);
-        alpha=atan2(Z,X);
-        bearing[0]=alpha;
-        bearing[1]=beta;
-        }
-        return bearing;
-
-    }
-    
-    /// @brief return the bearing vector of a 3D event 
-    inline cv::Vec3f getBearing() {
-        cv::Vec3f bearing;
-        double rho = sqrt(powf(this->X,2)+powf(this->Y,2)+powf(this->Z,2));
-        double alpha;
-        double beta;
-        if(this->Z == rho || this-> Z == -rho){
-            std::cout<<"Bearing undefined for this coordinate (Z=1 or Z=-1)"<<std::endl;
-            return 0;
-        }
-        else{
-        beta=asin(Z/rho);
-        alpha=atan2(Y,X);
-        bearing[0]=alpha;
-        bearing[1]=beta;
-        bearing[2]=rho;
-        }
-        return bearing;
-
-    }
-
-  
-
 };
 
 } // namespace Metavision
