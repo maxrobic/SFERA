@@ -50,7 +50,7 @@ Tracking:
 ```
 ./SFERA_omnitracking {SerialPortMaster} {SerialPortSlave}
 ```
-Note that the codes can also be used with prerecorded .raw data. In this case, one can change {SerialPortMaster} {SerialPortSlave} by the file address of the data, *e.g.* {/master.raw} {/slave.raw}.
+Note that the codes can also be used with prerecorded .raw data. In this case, one can change {SerialPortMaster} {SerialPortSlave} by the file address of the data, *e.g.* {/master.raw} {/slave.raw} and set the value of the bool *live_camera* to *false*.
 
 ## Acknowledgment
 The bayesian estimator is adapted from the work of Prof. Ivan Marković on omnidirectional RGB, whose source code can be found here: https://bitbucket.org/unizg-fer-lamor/odyn-tracker/src/master/
