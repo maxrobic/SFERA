@@ -50,37 +50,42 @@ _Description of Parameters:_
 
 * `--output-name {OutputName}` : Defines the name of the output files (both the image and detected points).
 
-`--rows {NumberOfLines}` : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
+* `--rows {NumberOfLines}` : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
 
-`--cols {NumberOfColumns}` : Indicates the number of inner vertical lines (columns) on the calibration pattern.
+* `--cols {NumberOfColumns}` : Indicates the number of inner vertical lines (columns) on the calibration pattern.
 
-`--number-pose {PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (useful when multiple poses are required).
+* `--number-pose {PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (useful when multiple poses are required).
 
-`-s {SerialPortMaster}` : Specifies the serial port of the master camera or device used for image acquisition.
+* `-s {SerialPortMaster}` : Specifies the serial port of the master camera or device used for image acquisition.
 
 Note that for greater simplicity, we recommend using our interface `./First_step.sh`, which automates the entire acquisition procedure for both cameras.
+You simply need to follow the instructions provided in the prompt. During the process, you will be prompted to press the `R` key to record the current camera pose. 
+Once the pose is successfully recorded, press `Q` to exit the acquisition for the current camera.
 
 **Matching of coordinates:**
 
+The following script is used to match the pixel coordinates with the 3D world coordinates.
 ```
 ./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2PointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
 ```
 _Description of Parameters:_
 
-`{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
+* `{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
 
-`{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
+* `{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
 
-`{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
+* `{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
 
-`{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. This is used for scaling and accuracy in sorting.
+* `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. This is used for scaling and accuracy in sorting.
 
-`{NumberOfLines}` : The number of inner horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
+* `{NumberOfLines}` : The number of inner horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
 
-`{NumberOfColumns}` : The number of inner vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
+* `{NumberOfColumns}` : The number of inner vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
-Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras.
+Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras. 
+During the process, you will be prompted to press Y to confirm the order of the detected points displayed on the image, or N to redo the point matching. 
+If you press N, you will be required to manually select 4 points that correspond to the corners of the calibration pattern in a specific order, as described in the prompt.
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
