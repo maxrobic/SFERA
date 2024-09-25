@@ -28,7 +28,7 @@ Some tips to compile and run the different codes provided.
 ### Calibration
 This part refers to the Calibration folder.
 
-####Compilation:
+**Compilation:**
 
 ```
 cd SFERA/Calibration/
@@ -46,9 +46,9 @@ The following script is used to record an image and the points detected on a cal
 ```
 _Description of Parameters:_
 
-`--output-dir {OutputFilePath}` : Specifies the directory where the acquired image and detection results will be saved.
+* `--output-dir {OutputFilePath}` : Specifies the directory where the acquired image and detection results will be saved.
 
-`--output-name {OutputName}` : Defines the name of the output files (both the image and detected points).
+* `--output-name {OutputName}` : Defines the name of the output files (both the image and detected points).
 
 `--rows {NumberOfLines}` : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
 
@@ -63,16 +63,29 @@ Note that for greater simplicity, we recommend using our interface `./First_step
 **Matching of coordinates:**
 
 ```
-./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2OointsOfInterest} {NumberOfLines} {NumberOfcolumns}
+./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2PointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
 ```
 _Description of Parameters:_
+
+`{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
+
+`{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
+
+`{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
+
+`{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. This is used for scaling and accuracy in sorting.
+
+`{NumberOfLines}` : The number of inner horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
+
+`{NumberOfColumns}` : The number of inner vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
+
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras.
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
 
-Compilation:
+**Compilation:**
 
 ```
 cd SFERA/Omnitracking/
@@ -81,13 +94,13 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make
 ```
 
-Viewer:
+**Viewer:**
 
 ```
 ./SFERA_viewer {SerialPortMaster} {SerialPortSlave}
 
 ```
-Tracking:
+**Tracking:**
 ```
 ./SFERA_omnitracking {SerialPortMaster} {SerialPortSlave}
 ```
