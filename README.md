@@ -37,14 +37,14 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make
 ```
 
-####Acquisition and Detection:
+**Acquisition and Detection:**
 
 The following script is used to record an image and the points detected on a calibration pattern (such as a checkerboard) for calibration purposes:
 ```
 ./step_one_primitive_detection_recording --output-dir {OutputFilePath} --output-name {OutputName} --rows {NumberOfLines} --cols {NumberOfcolumns} --number-pose {PoseNumber} -s {SerialPortMaster} 
 
 ```
-#####Description of Parameters:
+_Description of Parameters:_
 
 `--output-dir {OutputFilePath}` : Specifies the directory where the acquired image and detection results will be saved.
 
@@ -60,13 +60,13 @@ The following script is used to record an image and the points detected on a cal
 
 Note that for greater simplicity, we recommend using our interface `./First_step.sh`, which automates the entire acquisition procedure for both cameras.
 
-####Matching of coordinates:
+**Matching of coordinates:**
 
 ```
 ./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2OointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
 ```
-#####Description of Parameters:
+_Description of Parameters:_
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras.
 
 ### Viewer & Tracking
