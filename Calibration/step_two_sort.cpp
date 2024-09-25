@@ -1,5 +1,5 @@
 /****************************************************************************************************
-* This code allows the mathing of pixel coordinates with 3D world coordinates.                      *
+* This code allows the matching of pixel coordinates with 3D world coordinates.                      *
 * Initially, the algorithm proposes an automatic association.                                       *
 * The user must then validate the coordinate matching for each pose.                                *
 * In case of incorrect matching, the user has the option to adjust the data                         *
