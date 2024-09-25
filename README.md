@@ -50,9 +50,9 @@ _Description of Parameters:_
 
 * `--output-name {OutputName}` : Defines the name of the output files (both the image and detected points).
 
-* `--rows {NumberOfLines}` : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
+* `--rows {NumberOfLines}` : Indicates the number of horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
 
-* `--cols {NumberOfColumns}` : Indicates the number of inner vertical lines (columns) on the calibration pattern.
+* `--cols {NumberOfColumns}` : Indicates the number of vertical lines (columns) on the calibration pattern.
 
 * `--number-pose {PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (useful when multiple poses are required).
 
@@ -79,9 +79,9 @@ _Description of Parameters:_
 
 * `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. 
 
-* `{NumberOfLines}` : The number of inner horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
+* `{NumberOfLines}` : The number of horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
 
-* `{NumberOfColumns}` : The number of inner vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
+* `{NumberOfColumns}` : The number of vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras. 
 During the process, you will be requested to press `Y` to confirm the order of the detected points displayed on the image, or `N` to redo the point matching. 
