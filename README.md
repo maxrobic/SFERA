@@ -77,7 +77,7 @@ _Description of Parameters:_
 
 * `{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
 
-* `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. This is used for scaling and accuracy in sorting.
+* `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. 
 
 * `{NumberOfLines}` : The number of inner horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
 
