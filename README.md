@@ -45,12 +45,14 @@ The following script is used to record an image and the points detected on a cal
 
 ```
 Description of Parameters:
---output-dir {OutputFilePath} : Specifies the directory where the acquired image and detection results will be saved.
---output-name {OutputName} : Defines the name of the output files (both the image and detected points).
---rows {NumberOfLines} : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
---cols {NumberOfColumns} : Indicates the number of inner vertical lines (columns) on the calibration pattern.
---number-pose {PoseNumber} : Refers to the pose number or shot number in a series of images for calibration (useful when multiple poses are required).
--s {SerialPortMaster} : Specifies the serial port of the master camera or device used for image acquisition.
+
+`--output-dir {OutputFilePath}` : Specifies the directory where the acquired image and detection results will be saved.
+`--output-name {OutputName}` : Defines the name of the output files (both the image and detected points).
+`--rows {NumberOfLines}` : Indicates the number of inner horizontal lines (rows) on the calibration pattern (i.e., how many rows of points are visible on the pattern).
+`--cols {NumberOfColumns}` : Indicates the number of inner vertical lines (columns) on the calibration pattern.
+`--number-pose {PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (useful when multiple poses are required).
+`-s {SerialPortMaster}` : Specifies the serial port of the master camera or device used for image acquisition.
+
 Note that for greater simplicity, we recommend using our interface `./First_step.sh`, which automates the entire acquisition procedure for both cameras.
 
 Matching of coordinates:
