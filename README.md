@@ -46,7 +46,7 @@ Note that for greater simplicity, we recommend using our interface ./First_step.
 
 Matching of coordinates:
 ```
-./build/step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2OointsOfInterest} {NumberOfLines} {NumberOfcolumns}
+./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2OointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
 ```
 Note that for greater simplicity, we recommend using our interface ./second_step.sh, which automates the entire matching procedure for each cameras.
