@@ -4,7 +4,7 @@ This repository regroups several modules to calibrate dual back-to-back fisheye 
 
 The source code of the present version was also used to generate the results of our submitted ICRA25 paper "A new Stereo Fisheye Event Camera for Fast Drone Detection and Tracking". The bibtex of the article will be provided later.
 
-For any information do not hesitate to contact me: maxime.robic@u-picardie.fr.
+For any information do not hesitate to contact us: maxime.robic@u-picardie.fr or daniel.rodrigues.da.costa@u-picardie.fr.
 
 ## Dependencies
 
