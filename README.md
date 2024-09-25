@@ -42,14 +42,14 @@ Acquisition and Detection:
 ./step_one_primitive_detection_recording --output-dir {OutputFilePath} --output-name {OutputName} --rows {NumberOfLines} --cols {NumberOfcolumns} --number-pose {PoseNumber} -s {SerialPortMaster} 
 
 ```
-Note that for greater simplicity, we recommend using our interface ./First_step.sh, which automates the entire acquisition procedure for both cameras.
+Note that for greater simplicity, we recommend using our interface `./First_step.sh`, which automates the entire acquisition procedure for both cameras.
 
 Matching of coordinates:
 ```
 ./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2OointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
 ```
-Note that for greater simplicity, we recommend using our interface ./second_step.sh, which automates the entire matching procedure for each cameras.
+Note that for greater simplicity, we recommend using our interface `./second_step.sh`, which automates the entire matching procedure for each cameras.
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
