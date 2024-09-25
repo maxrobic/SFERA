@@ -67,15 +67,10 @@ The following script is used to match the pixel coordinates with the 3D world co
 _Description of Parameters:_
 
 * `{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
-
 * `{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
-
 * `{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
-
 * `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. 
-
 * `{NumberOfLines}` : The number of horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
-
 * `{NumberOfColumns}` : The number of vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras. 
