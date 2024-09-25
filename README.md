@@ -38,8 +38,8 @@ make
 ```
 
 **Acquisition and Detection:**
-
 The following script is used to record an image and the points detected on a calibration pattern (such as a checkerboard) for calibration purposes:
+
 ```
 ./step_one_primitive_detection_recording --output-dir {OutputFilePath} --output-name {OutputName} --rows {NumberOfLines} --cols {NumberOfcolumns} --number-pose {PoseNumber} -s {SerialPortMaster} 
 
@@ -63,8 +63,8 @@ You simply need to follow the instructions provided in the prompt. During the pr
 Once the pose is successfully recorded, press `Q` to exit the acquisition for the current camera.
 
 **Matching of coordinates:**
-
 The following script is used to match the pixel coordinates with the 3D world coordinates.
+
 ```
 ./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2PointsOfInterest} {NumberOfLines} {NumberOfcolumns}
 	
@@ -84,8 +84,8 @@ _Description of Parameters:_
 * `{NumberOfColumns}` : The number of inner vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras. 
-During the process, you will be prompted to press Y to confirm the order of the detected points displayed on the image, or N to redo the point matching. 
-If you press N, you will be required to manually select 4 points that correspond to the corners of the calibration pattern in a specific order, as described in the prompt.
+During the process, you will be requested to press `Y` to confirm the order of the detected points displayed on the image, or `N` to redo the point matching. 
+If you press `N`, you will be required to manually select 4 points that correspond to the corners of the calibration pattern in a specific order, as described in the prompt.
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
