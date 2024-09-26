@@ -69,7 +69,7 @@ _Description of Parameters:_
 * `{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
 * `{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
 * `{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
-* `{SquareSide}` : The physical distance (in real-world units) of as square of the calibration pattern. 
+* `{SquareSide}` : The physical distance (in mm) of a side of the square of the calibration pattern. 
 * `{NumberOfLines}` : The number of horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
 * `{NumberOfColumns}` : The number of vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
@@ -82,12 +82,34 @@ If you press `N`, you will be required to manually select 4 points that correspo
 This last step takes advantage of OpenCV's *omnicalib* to obtain the calibration parameters of each camera. Please run step 1 (and optionnaly step 2 as mentionned before) so you have images (and object/image points) of the calibration pattern available. It is also possible to give step 3 with your own calibration pattern images (or points). Please follow the instructions below:
 
 ```
-./step_three_omnicalibration -w={NumberOfColums} -h={NumberOfLines} -s={SquareSide} -fp={fixedPrincipal} -fs={fixedSkew} -id={idCam} -nPose={PoseNumber} imagelist.xml
+./step_three_omnicalibration -w={NumberOfColums} -h={NumberOfLines} -s={SquareSide} -fp={FixedPrincipal} -fs={FixedSkew} -id={idCam} -nPose={PoseNumber} {imagelist.xml}
 
 ```
 
+_Description of Parameters:_
+
+* `{NumberOfColumns}` : The number of vertical lines (columns) on the calibration pattern.
+* `{NumberOfLines}` : The number of horizontal lines (rows) on the calibration pattern.
+* `{SquareSize}` : The physical distance (in mm) of a side of a square of the calibration pattern. (default value = 1.0)
+* `{FixedPrincipal}` : A boolean to fix the principal point to half the dimension of the camera. (default value = false)
+* `{FixedSkew}` : A boolean to fix the skew parameter to 1. (default value = false)
+* `{idCam}` : The id of the camera you wish to calibrate, 1 for Master, 2 for Slave.
+* `{PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (if you have k images for each camera, put k)
+* {imagelist.xml}: Optional string, a .xml file with the list of images paths in string format (default value = ""). If you do not specified this parameter, the algorithm targets directly the folder created by step 1 with the recorded images.
+
+Example of what to run if you have recorded 7 poses with step 1 on each camera with arbitrary parameters:
+
+```
+./step_three_omnicalibration -w=6 -h=9 -s=34 -fs=true -id=1 -nPose=7
+
+./step_three_omnicalibration -w=6 -h=9 -s=34 -fs=true -id=2 -nPose=7
+
+```
+
+The output of the calibration are then stored in param_camera1.xml & param_camera2.xml.
+
 ### Viewer & Tracking
-This part refers to the Omnitracking folder.
+This part refers to the Omnitracking folder. It allows you to run a spherical view of the sensor with accumulated map, and to run the tracker and see the tracker result in this spherical view.
 
 **Compilation:**
 
