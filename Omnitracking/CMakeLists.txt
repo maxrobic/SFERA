@@ -1,4 +1,4 @@
-project(SFERA_Omnitracking)
+project(omnitracking)
 
 cmake_minimum_required(VERSION 3.5)
 
