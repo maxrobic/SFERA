@@ -37,7 +37,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make
 ```
 
-**Acquisition and Detection:**
+**Step 1 - Acquisition and Detection:**
 The following script is used to record an image and the points detected on a calibration pattern (such as a checkerboard) for calibration purposes:
 
 ```
@@ -57,8 +57,8 @@ Note that for greater simplicity, we recommend using our interface `./First_step
 You simply need to follow the instructions provided in the prompt. During the process, you will be prompted to press the `R` key to record the current camera pose. 
 Once the pose is successfully recorded, press `Q` to exit the acquisition for the current pose, which will automatically execute the code for the next pose.
 
-**Matching of coordinates:**
-The following script is used to match the pixel coordinates with the 3D world coordinates.
+**Step 2 - Matching of coordinates (optional):**
+The following script is used to match the pixel coordinates with the 3D world coordinates. It is optional since *omnicalib* has already a coordinates matching algorithm embedded so you can just provide the images acquired in step 1, as it is done currently. However, it is also possible to run step 2 and provide *omnicalib* with the results of step 2 (*i.e.* object & image points). We recommend to use this technique if you are not satisfied with the primitive detection of OpenCV. 
 
 ```
 ./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2PointsOfInterest} {NumberOfLines} {NumberOfcolumns}
@@ -76,6 +76,9 @@ _Description of Parameters:_
 Note that for greater simplicity, we recommend using our interface `./Second_step.sh`, which automates the entire matching procedure for each cameras. 
 During the process, you will be requested to press `Y` to confirm the order of the detected points displayed on the image, or `N` to redo the point matching. 
 If you press `N`, you will be required to manually select 4 points that correspond to the corners of the calibration pattern in a specific order, as described in the prompt.
+
+**Step 3 - Estimation of camera parameters:**
+
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
