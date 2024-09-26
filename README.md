@@ -10,7 +10,7 @@ For any information do not hesitate to contact us: maxime.robic@u-picardie.fr or
 
 These modules are meant to work with Metavision SDK, so first step is to install it: https://docs.prophesee.ai/4.6.2/index.html
 
-The current version of the code has been validated with the following version of core dependencies:
+The current version of the code has been validated on Ubuntu 22.04.4 (but the portage to Windows is straightforward) with the following version of core dependencies:
 
 | Library       | Version       |
 | ------------- | ------------- |
@@ -55,7 +55,7 @@ _Description of Parameters:_
 
 Note that for greater simplicity, we recommend using our interface `./First_step.sh`, which automates the entire acquisition procedure for both cameras.
 You simply need to follow the instructions provided in the prompt. During the process, you will be prompted to press the `R` key to record the current camera pose. 
-Once the pose is successfully recorded, press `Q` to exit the acquisition for the current camera.
+Once the pose is successfully recorded, press `Q` to exit the acquisition for the current pose, which will automatically execute the code for the next pose.
 
 **Matching of coordinates:**
 The following script is used to match the pixel coordinates with the 3D world coordinates.
