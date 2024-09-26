@@ -95,7 +95,7 @@ _Description of Parameters:_
 * `{FixedSkew}` : A boolean to fix the skew parameter to 1. (default value = false)
 * `{idCam}` : The id of the camera you wish to calibrate, 1 for Master, 2 for Slave.
 * `{PoseNumber}` : Refers to the pose number or shot number in a series of images for calibration (if you have k images for each camera, put k)
-* {imagelist.xml}: Optional string, a .xml file with the list of images paths in string format (default value = ""). If you do not specified this parameter, the algorithm targets directly the folder created by step 1 with the recorded images.
+* `{imagelist.xml}`: Optional string, a .xml file with the list of images paths in string format (default value = ""). If you do not specified this parameter, the algorithm targets directly the folder created by step 1 with the recorded images.
 
 Example of what to run if you have recorded 7 poses with step 1 on each camera with arbitrary parameters:
 
