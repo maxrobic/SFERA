@@ -13,10 +13,9 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/data_img)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/data_point)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/datasorted)
 
-set(sample step_one_primitive_detection_recording)
-set(source_files ${sample}.cpp blinking_chessboard_detector.cpp blinking_dots_grid_detector.cpp)
-add_executable(${sample} ${source_files})
-target_link_libraries(${sample} 
+set(source_files src/step_one_primitive_detection_recording.cpp src/blinking_chessboard_detector.cpp src/blinking_dots_grid_detector.cpp)
+add_executable(step_one_primitive_detection_recording ${source_files})
+target_link_libraries(step_one_primitive_detection_recording
 	MetavisionSDK::core
 	MetavisionSDK::base
 	MetavisionSDK::driver
@@ -27,8 +26,8 @@ target_link_libraries(${sample}
 	Boost::program_options
 	${OpenCV_LIBS})
 
-add_executable(step_two_sort step_two_sort.cpp)
+add_executable(step_two_sort src/step_two_sort.cpp)
 target_link_libraries(step_two_sort ${OpenCV_LIBS})
 
-add_executable(step_three_omnicalibration step_three_omnicalibration.cpp)
+add_executable(step_three_omnicalibration src/step_three_omnicalibration.cpp)
 target_link_libraries(step_three_omnicalibration ${OpenCV_LIBS})

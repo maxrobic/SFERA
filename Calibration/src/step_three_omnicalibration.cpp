@@ -165,8 +165,7 @@ int main(int argc, char** argv)
     cv::CommandLineParser parser(argc, argv,
                                  "{w||board width}"
                                  "{h||board height}"
-                                 "{sw|1.0|square width}"
-                                 "{sh|1.0|square height}"
+                                 "{s|1.0|square side}"
                                  "{fs|false|fix skew}"
                                  "{fp|false|fix principal point at the center}"
                                  "{id||id of the camera, master = 1, slave = 2}"
@@ -175,7 +174,7 @@ int main(int argc, char** argv)
                                  "{help||show help}"
                                  );
     parser.about("This is a sample for omnidirectional camera calibration. Example command line:\n"
-                 "    step_three_omnicalibration -w=6 -h=9 -sw=80 -sh=80 -id=1 -nPose=4 imagelist.xml \n");
+                 "    step_three_omnicalibration -w=6 -h=9 -s=80 -id=1 -nPose=4 imagelist.xml \n");
     if (parser.has("help") || !parser.has("w") || !parser.has("h") || !parser.has("id") || !parser.has("nPose"))
     {
         parser.printMessage();
@@ -183,7 +182,7 @@ int main(int argc, char** argv)
     }
 
     Size boardSize(parser.get<int>("w"), parser.get<int>("h"));
-    Size2d squareSize(parser.get<double>("sw"), parser.get<double>("sh"));
+    Size2d squareSize(parser.get<double>("s"), parser.get<double>("s"));
     int flags = 0;
     if (parser.get<bool>("fs"))
         flags |= omnidir::CALIB_FIX_SKEW;
