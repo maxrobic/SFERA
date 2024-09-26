@@ -61,7 +61,7 @@ Once the pose is successfully recorded, press `Q` to exit the acquisition for th
 The following script is used to match the pixel coordinates with the 3D world coordinates. It is optional since *omnicalib* has already a coordinates matching algorithm embedded so you can just provide the images acquired in step 1, as it is done currently. However, it is also possible to run step 2 and provide *omnicalib* with the results of step 2 (*i.e.* object & image points). We recommend to use this technique if you are not satisfied with the primitive detection of OpenCV. 
 
 ```
-./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {DistanceBetween2PointsOfInterest} {NumberOfLines} {NumberOfcolumns}
+./step_two_sort {InputTextFilePath} {OutputTextFilePath} {InputImageFilePath} {SquareSide} {NumberOfLines} {NumberOfcolumns}
 	
 ```
 _Description of Parameters:_
@@ -69,7 +69,7 @@ _Description of Parameters:_
 * `{InputTextFilePath}` : Path to the input text file that contains the raw detection data (coordinates of points detected on the calibration pattern).
 * `{OutputTextFilePath}` : Path to the output text file where the sorted detection data will be saved.
 * `{InputImageFilePath}` : Path to the input image file, which corresponds to the original calibration image used in the detection phase.
-* `{DistanceBetween2PointsOfInterest}` : The physical distance (in real-world units) between two points of interest on the calibration pattern. 
+* `{SquareSide}` : The physical distance (in real-world units) of as square of the calibration pattern. 
 * `{NumberOfLines}` : The number of horizontal lines (rows) on the calibration pattern, helping to organize the points correctly.
 * `{NumberOfColumns}` : The number of vertical lines (columns) on the calibration pattern, used to sort the detected points in the correct order.
 
@@ -79,6 +79,12 @@ If you press `N`, you will be required to manually select 4 points that correspo
 
 **Step 3 - Estimation of camera parameters:**
 
+This last step takes advantage of OpenCV's *omnicalib* to obtain the calibration parameters of each camera. Please run step 1 (and optionnaly step 2 as mentionned before) so you have images (and object/image points) of the calibration pattern available. It is also possible to give step 3 with your own calibration pattern images (or points). Please follow the instructions below:
+
+```
+./step_three_omnicalibration -w={NumberOfColums} -h={NumberOfLines} -s={SquareSide} -fp={fixedPrincipal} -fs={fixedSkew} -id={idCam} -nPose={PoseNumber} imagelist.xml
+
+```
 
 ### Viewer & Tracking
 This part refers to the Omnitracking folder.
