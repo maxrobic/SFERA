@@ -132,5 +132,15 @@ make
 ```
 Note that the codes can also be used with prerecorded .raw data. In this case, one can change {SerialPortMaster} {SerialPortSlave} by the file address of the data, *e.g.* {/master.raw} {/slave.raw} and set the value of the bool *live_camera* to *false*.
 
+**Output:**
+
+Here you can see the output of the omnitracking algorithm (video taken from our submission to ICRA25):
+
+
+https://github.com/user-attachments/assets/3c328aeb-cb85-4aa2-924d-74e5948ce9ac
+
+
+
+
 ## Acknowledgment
 The bayesian estimator is adapted from the work of Prof. Ivan Marković on omnidirectional RGB, whose source code can be found here: https://bitbucket.org/unizg-fer-lamor/odyn-tracker/src/master/
