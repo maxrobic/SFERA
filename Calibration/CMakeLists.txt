@@ -1,4 +1,4 @@
-project(step_one_primitive_detection_recording)
+project(calibration)
 
 cmake_minimum_required(VERSION 3.5)
 
