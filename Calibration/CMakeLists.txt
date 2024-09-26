@@ -2,11 +2,11 @@ project(step_one_primitive_detection_recording)
 
 cmake_minimum_required(VERSION 3.5)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(MetavisionSDK 4.6.2 EXACT COMPONENTS core driver cv calibration ui REQUIRED)
 find_package(Boost COMPONENTS filesystem program_options REQUIRED)
-find_package(OpenCV COMPONENTS core highgui imgproc calib3d REQUIRED)
+find_package(OpenCV REQUIRED)
 include_directories(${Opencv_INCLUDE_DIRS})
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/data_img)
@@ -29,3 +29,6 @@ target_link_libraries(${sample}
 
 add_executable(step_two_sort step_two_sort.cpp)
 target_link_libraries(step_two_sort ${OpenCV_LIBS})
+
+add_executable(step_three_omnicalibration step_three_omnicalibration.cpp)
+target_link_libraries(step_three_omnicalibration ${OpenCV_LIBS})
