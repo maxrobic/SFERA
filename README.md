@@ -137,8 +137,7 @@ Note that the codes can also be used with prerecorded .raw data. In this case, o
 Here you can see the output of the omnitracking algorithm (video taken from our submission to ICRA25):
 
 
-https://github.com/user-attachments/assets/3c328aeb-cb85-4aa2-924d-74e5948ce9ac
-
+https://github.com/user-attachments/assets/c6c31c25-1d72-4c7c-955a-0b03c0df0251
 
 
 
